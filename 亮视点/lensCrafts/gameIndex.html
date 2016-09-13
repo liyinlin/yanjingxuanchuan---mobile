@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/index.css">
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script>var channel = '20'</script>
+    <script src="js/trackEvent.js"></script>
+	<title>做赢家要眼快，不服来战</title>
+	<script>
+    track(channel,10299);
+    </script>
+</head>
+<body>
+	<div class="main">
+		<img class="bg_img" src="images/time_bg.jpg" alt="限时">
+		<div class="e_direction">
+			<dl>
+				<dt class="word"><img id="word" src="images/w3.png" alt=""></dt>
+				<dt class="ejpg"><img id="small" src="images/s3.png" alt=""></dt>
+				<dd><img id="large" src="images/l3.png" alt=""></dd>
+			</dl>
+		</div>
+		<a class="start" href="javascript:;" onClick="track(channel,10300,'eyes.html');"></a>
+	</div>
+</body>
+<script src="js/common.js"></script>
+<script>
+	randomImage();
+	function randomImage(){
+		var word = document.getElementById("word");
+		var small = document.getElementById("small");
+		var large = document.getElementById("large");
+		var num = Math.ceil(Math.random()*4);
+		word.src = "images/w"+num+".png";
+		small.src = "images/s"+num+".png";
+		large.src = "images/l"+num+".png";
+		localStorage.setItem("n",num);
+	}
+</script>
+</html>

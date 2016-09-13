@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>做赢家要眼快，不服来战</title>
+    <script src="js/trackEvent.js"></script>
+    <script type="text/javascript">
+        if (localStorage.getItem("n") == null) location.href = "gameIndex.html";
+        var score = 0;
+        var data = new Array();
+        var datb = new Array();
+        var images = new Array();
+        var imagex = new Array();
+        var random = new Array();
+        for (var m = 0; m < 12; m++) {
+            random[m] = new Array();
+            for (var n = 0; n < 14; n++) {
+                random[m][n] = Math.ceil(Math.random() * 4);
+            }
+        }
+        function draw() {
+            track(20, 10301);
+            canvas = document.getElementById("canvas");
+            context = canvas.getContext("2d");
+            var t0, t1, t2, t3, count = 0;
+            for (var i = 0; i < 12; i++) {
+                images[i] = new Array();
+                for (var j = 0; j < 14; j++) {
+                    t0 = Math.ceil(Math.random() * 4);
+                    context.drawImage(data[t0], i * 25, j * 25);
+                    images[i][j] = data[t0].src + "," + i * 25 + "," + j * 25;
+                }
+            }
+            for (var i = 0; i < 12; i++) {
+                imagex[i] = new Array();
+                for (var j = 0; j < 12; j++) {
+                    t1 = Math.ceil(Math.random() * 10);
+                    t2 = Math.ceil(Math.random() * 4);
+                    if (t1 % 3 == 0) {
+                        context.clearRect(i * 50, j * 50, 50, 50);
+                        context.drawImage(datb[t2], i * 50, j * 50);
+                        imagex[i][j] = datb[t2].src + "," + i * 50 + "," + j * 50;
+                    }
+                }
+            }
+        }
+        function getEventPosition(ev) {
+            var x, y;
+            if (ev.layerX || ev.layerX == 0) {
+                x = ev.layerX;
+                y = ev.layerY;
+            } else if (ev.offsetX || ev.offsetX == 0) {
+                x = ev.offsetX;
+                y = ev.offsetY;
+            }
+            return { x: x, y: y };
+        }
+        (function () {
+            for (var i = 1; i < 5; i++) {
+                data[i] = new Image();
+                data[i].src = "images/" + i + ".png";
+                datb[i] = new Image();
+                datb[i].src = "images/" + parseInt(i + 10) + ".png";
+            }
+        })();
+    </script>
+    <style type="text/css">
+        input {
+            margin-right: 60px;
+        }
+
+        body {
+            padding: 0px;
+            margin: 0px;
+            background-color: #ebebeb;
+        }
+
+        .main {
+            width: 320px;
+            margin:0 auto;
+        }
+
+            .main .title {
+                padding-left: 88px;
+                height: 50px;
+                line-height: 50px;
+            }
+
+                .main .title .spn {
+                    float: left;
+                    padding-top: 7px;
+                    padding-right: 8px;
+                }
+
+                .main .title .spn2 {
+                    float: left;
+                    padding-right: 8px;
+                }
+
+        #clock {
+            float: left;
+            padding-top: 12px;
+            padding-right: 3px;
+        }
+
+            #clock img {
+                display: none;
+                float: left;
+            }
+    </style>
+</head>
+<body onload="draw()">
+    <div class="main">
+        <div class="title">
+            <span class="spn"><img src="images/clock.png" style="" /></span>
+            <span class="spn"><img src="images/m.png" /></span>
+            <span class="spn2"><img src="images/d.png" /></span>
+            <input type="hidden" value="15" id="time" />
+            <span id="clock">
+                <img src="images/m0.png" style='margin-right:3px;' id="0s" /><img src="images/m1.png" style='margin-right:3px;' id="1s" />
+                <img src="images/m0.png" id="0" /><img src="images/m1.png" id="1" /><img src="images/m2.png" id="2" /><img src="images/m3.png" id="3" /><img src="images/m4.png" id="4" />
+                <img src="images/m5.png" id="5" /><img src="images/m6.png" id="6" /><img src="images/m7.png" id="7" /><img src="images/m8.png" id="8" /><img src="images/m9.png" id="9" />
+            </span>
+        </div>
+        <div style="width: 320px; height: 370px; background: url('images/bg.png') no-repeat; background-color: #ebebeb; ">
+            <canvas width="300" height="350" id="canvas" style="margin: 2px 9px">你的浏览器不支持HTML5，请更换浏览器，例如chrome，火狐等</canvas>
+        </div>
+    </div>
+    <script type="text/javascript">
+        document.getElementById("1s").style.display = "block"; ds(5);
+        function run() {
+            var c = document.getElementById("time");
+            if (c.value == 0) {
+                window.localStorage.setItem("s", score);
+                if (score >= 0 && score <= 10)
+                    window.location.href = "get_less.html";
+                else if (score > 10 && score <= 20)
+                    window.location.href = "get_mid.html";
+                else
+                    window.location.href = "get_more.html";
+            }
+            var m = parseInt(c.value * 1 - 1);
+            if (m < 10) {
+                document.getElementById("0s").style.display = "block";
+                document.getElementById("1s").style.display = "none";
+                ds(m);
+            }
+            else {
+                m = m - 10;
+                document.getElementById("0s").style.display = "none";
+                document.getElementById("1s").style.display = "block";
+                ds(m);
+            }
+            c.value = c.value - 1;
+        }
+        function ds(ind) {
+            for (var i = 0; i < 10; i++) {
+                if (i == ind) {
+                    document.getElementById(i).style.display = "block";
+                } else {
+                    document.getElementById(i).style.display = "none";
+                }
+            }
+        }
+        (function () {
+            window.setInterval("run();", 1000);
+            var canvas = document.getElementById('canvas');
+            canvas.addEventListener('click', function (e) {
+                stopPropagation(e);
+                p = getEventPosition(e);
+                //小图片
+                var x = parseInt(p.x / 25);
+                var y = parseInt(p.y / 25);
+                //大图片
+                var m = parseInt(p.x / 50);
+                var n = parseInt(p.y / 50);
+                //处理大图片
+                (typeof imagex[m][n] != 'undefined') ? _d(imagex[m][n]) : _d(images[x][y]);
+            }, false);
+            function _d(obj) {
+                var arr_o = obj.split(",");
+                var img_o = new Image();
+                var key = arr_o[0].substring(arr_o[0].length - 6);
+                var n = key.substring(1, key.length - 4);
+                if (n == localStorage.getItem("n")) {
+                    score++;
+                    img_o.src = arr_o[0].substring(0, arr_o[0].length - 4) + "c.png";
+                    img_o.onload = function () {
+                        context.drawImage(img_o, arr_o[1], arr_o[2]);
+                    }
+                }
+            }
+            function stopPropagation(e) {
+                e = e || window.event;
+                if (e.stopPropagation) { 
+                    e.stopPropagation();
+                } else {
+                    e.cancelBubble = true; 
+                }
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script>var channel = '20'</script>
+    <script src="js/trackEvent.js"></script>
+    <title>做赢家要眼快，不服来战</title>
+</head>
+<body>
+    <div class="main">
+        <img class="bg_img" src="images/info_bg.jpg" alt="亮视">
+        <div class="infor">
+        	<p>
+        		<input id="name" type="text" placeholder="姓名">
+        	</p>
+        	<p>
+        		<input id="mobile" type="tel" placeholder="手机">
+        	</p>
+        	<!-- <p>
+                <input id="email" type="email" placeholder="邮箱">
+            </p> -->
+        	<p class="select">
+        		<select name="" id="city">
+        			<option value="">请选择城市</option>
+                    <!-- <option value="1">北京</option>
+                    <option value="2">西安</option> -->
+        		</select>
+                <em id="city_sel">请选择城市</em>
+        	</p>
+        	<p class="select">
+        		<select name="" id="store">
+        			<option value="">请选择门店</option>
+                    <!-- <option value="1">北京的</option>
+                    <option value="2">西安的</option> -->
+        		</select>
+                <em id="store_sel">请选择门店</em>
+        	</p>
+        </div>
+        <a class="reserve" href="javascript:checkInfo();"></a>
+
+        <!-- 弹出预约消息层 -->
+
+        <div id="popup" class="popup">
+            <div class="po_con">
+                <a class="po_add" href="javascript:;" onClick="passbook()">&nbsp;</a>
+                <a class="po_navigation" href="javascript:;" onClick="track(channel,10307,'navigation_map.html');">&nbsp;</a>
+            </div>
+            <script>
+                track(channel,10305);
+            </script>
+        </div>
+    </div>
+</body>
+<script src="js/common.js"></script>
+<script src="js/json.js"></script>
+<script>
+    $("#city_sel").html("请选择城市");
+    $("#store_sel").html("请选择门店");
+    $("#city").on("change",function(){
+        $("#city_sel").html($("#city option:selected").text());
+    });
+    $("#store").on("change",function(){
+        $("#store_sel").html($("#store option:selected").text());
+    });
+    function adwoOpenURL(type, orientations, onOrientationChanged, url) {
+        window.location = "adwo://adwoOpenURL&type_" + type + "&orientations_" + orientations + "&onOrientationChanged_" + onOrientationChanged + "&url_" + url;
+    }
+
+    function passbook(){
+        track(channel,10306);
+        /*http://211.99.11.51:38080/shengyuan/pass.pkpass*/
+        adwoOpenURL(4,0,0,"http://211.99.11.51:38080/passbook/passw/JOHNSON-1413423971938-1675.pkpass");
+    }
+    function checkInfo(){
+        track(channel,10304);
+        var name = $.trim($("#name").val()), reg_ch = /[^\u4e00-\u9fa5]/,reg_en = /^[a-zA-Z]+$/;
+        if(!name) {
+            alert("请输入您的姓名！");
+            return
+        }else if (reg_ch.test(name)&&!reg_en.test(name)) {
+            alert("请输入中文姓名或英文姓名！");
+            return
+        }
+
+        var tel = $.trim($("#mobile").val()), reg = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$$/;
+        if(!tel || !reg.test(tel)) {
+            alert("请输入正确的手机号码..."); 
+            return
+        }
+        
+        /*var email = $("#email").val();*/
+        /*var email = $("#email").val(), reg_email = /^(([\-\w]+)\.?)+@(([\-\w]+)\.?)+\.[a-zA-Z]{2,4}$/;
+        if(!email || !reg_email.test(email)) {
+            alert("请输入正确的邮箱...");
+            return
+        }*/
+
+        var cityId = $('#city').val(),cityName = $('#city').find('option:selected').text();  ;    
+        if (!cityId) {
+            alert("请选择城市！");
+            return
+        }
+
+        var storeId = $('#store').val(),storeName = $('#store').find('option:selected').text();  ;    
+        if (!storeId) {
+            alert("请选择门店！");
+            return
+        }
+
+        /*var url = "http://ama.adwo.com/advmessage/adv/addResult.action?advid=30125";*/
+        var url = "http://ama.adwo.com/advmessage/adv/addResultJsonP.action?advid=30125";
+        $.ajax({
+            url: url,
+            cache:false,
+            dataType: "jsonp",
+            jsonpCallback: "eventcallback",
+            data: {
+                realname: name,
+                mobile: tel,
+                cityid: cityId,
+                cityname: cityName,
+                dealerid: storeId,
+                expand1: storeName
+            },
+            success: function(json){
+                if(json[0].success == 1){
+                    $("#popup").show();
+                }else{
+                    alert(json[0].info);
+                }
+            }
+
+        });
+
+    }
+
+
+    function loadStore(storeData, city){
+        for(var i = storeData.options.length; i >= 1; i--)
+        {
+            storeData.options.remove(i);
+        }
+        var stores = [];
+        var isGetIt = false;
+        for(var i = 0; i < datas.length; i++){
+            if(city == datas[i].cId){
+                /*alert(datas[i].Dealers);*/
+                stores = datas[i].Dealers;
+                isGetIt = true;
+                break;
+            }
+
+            if(isGetIt) break;
+        }
+        for(var i = 0; i < stores.length; i++){
+            var elem_store = document.createElement("option");
+            elem_store.value = stores[i].dId;
+            elem_store.text = stores[i].dName;
+            storeData.options.add(elem_store);
+        }
+    }
+    
+    //地址单选列表(级联)
+    function loadCity(cityData1, storeData){
+        
+        for(var i = 0; i < datas.length; i++){
+
+            var elem_city = document.createElement("option");
+            elem_city.value = datas[i].cId;
+            elem_city.text = datas[i].cName;
+            cityData1.options.add(elem_city);
+        }
+        cityData1.onchange = function(){
+            loadStore(storeData, this.value);
+        }
+    }
+    function initOnload(){
+        var cityData = document.getElementById("city");
+        var storeData = document.getElementById("store");
+        loadCity(cityData, storeData);
+        cityData.onchange();
+        
+    };
+    initOnload();
+</script>
+</html>

@@ -1,0 +1,215 @@
+body{
+	background-color: #ebebeb;
+}
+.main{
+	position: relative;
+	width: 640px;
+	height: 960px;
+}
+.bg_img{
+	width: 640px;
+	height: 960px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.go{
+	position: absolute;
+	display: block;
+	width: 226px;
+	height: 230px;
+	left: 206px;
+	top: 600px;
+}
+.start{
+	position: absolute;
+	display: block;
+	width: 282px;
+	height: 64px;
+	left: 180px;
+	top: 673px;
+}
+.e_direction{
+	position: absolute;
+	width: 502px;
+	height: 464px;
+	top: 76px;
+	left: 92px;
+}
+.e_direction dl,.e_more dl{
+	position: relative;
+}
+.e_direction .word{
+	position: absolute;
+	width: 63px;
+	height: 56px;
+	top: 15px;
+	left: 144px;
+}
+.e_direction .ejpg{
+	position: absolute;
+	width: 109px;
+	height: 69px;
+	top: 0;
+	right: 0;
+}
+.e_direction dd{
+	position: absolute;
+	top: 136px;
+	left: 88px;
+	width: 325px;
+	height: 325px;
+}
+.fill_in{
+	position: absolute;
+	width: 282px;
+	height: 64px;
+	top: 723px;
+	left: 181px;
+}
+.e_more{
+	position: absolute;
+	top: 140px;
+	left: 135px;
+	width: 372px;
+	height: 554px;
+}
+.e_more dt,.e_more dd{
+	position: absolute;
+}
+.e_more dt{
+	top: 0;
+	left: 184px;
+}
+.e_more dt p{
+	height: 60px;
+	display: inline-block;
+	z-index: 3;
+	background-image: url(../images/n0_9.png);
+	background-repeat: no-repeat;
+	/* margin-right: 2px; */
+}
+.e_j1{
+	margin-left: 4px;
+	width: 44px;
+	background-position: 0px -420px;
+}
+.e_j2{
+	width: 48px;
+	background-position: 0px -479px;
+}
+.e_more dd{
+	left: 84px;
+	top: 316px;
+	width: 217px;
+	height: 217px;
+	background: url(../images/l3.png) 0 0 no-repeat;
+	background-size: 217px 217px;
+}
+.infor{
+	width: 294px;
+	height: 288px;
+	position: absolute;
+	top: 488px;
+	left: 182px;
+	/* font-size: 20px; */
+}
+.infor p{
+	height: 70px;
+	line-height: 70px;
+}
+.reserve{
+	position: absolute;
+	bottom: 112px;
+	left: 178px;
+	width: 284px;
+	height: 63px;
+}
+.infor input{
+	width: 245px;
+	height: 16px;
+	padding: 10px 15px;
+	border: 1px solid #999;
+}
+.infor select{
+	width: 277px;
+	height: 38px;
+	padding: 0 10px;
+}
+.select{
+	position: relative;
+}
+.select select{
+	opacity: 0;
+	position: absolute;
+	top: 8px;
+	left: 0;
+	z-index: 3;
+}
+.select em{
+	padding: 0 15px;
+	line-height: 38px;
+	width: 254px;
+	height: 40px;
+	position: absolute;
+	display: block;
+	top: 8px;
+	left: 0;
+	background: url(../images/input_bg.png) 0 0 no-repeat;
+	z-index: 2;
+}
+.popup{
+	position: absolute;
+	width: 640px;
+	height: 960px;
+	top: 0;
+	left: 0;
+	background: url(../images/popup_bg.png) 0 0 no-repeat;
+	z-index: 4;
+	display: none;
+}
+.po_con{
+	width: 522px;
+	height: 190px;
+	position: relative;
+	left: 62px;
+	top: 630px;
+}
+.po_con a{
+	display: block;
+	width: 283px;
+	height: 63px;
+	position: absolute;
+	left: 117px;
+}
+.po_add{
+	bottom: 103px;
+}
+.po_navigation{
+	bottom: 20px;
+}
+.map{
+	width: 541px;
+	height: 665px;
+	position: absolute;
+	top: 179px;
+	left: 49px;
+	z-index: 2;
+}
+.close{
+	position: absolute;
+	width: 78px;
+	height: 76px;
+	left: 280px;
+	bottom: 60px;
+	display: block;
+	background: url(../images/close_map.png) 0 0 no-repeat;
+	z-index: 3;
+}
+.one{
+	z-index: 3;
+	background-image: url(../images/n0_9.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 60px;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/index.css">
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script>var channel = '20'</script>
+    <script src="js/trackEvent.js"></script>
+	<title>做赢家要眼快，不服来战</title>
+	<script>
+    track(channel,10302);
+    </script>
+</head>
+<body>
+	<div class="main">
+		<img class="bg_img" src="images/get_mid.jpg" alt="">
+		<div class="e_more">
+			<dl>
+				<dt id="one" class="one"><p id="get_num1" class="e_j1"></p><p id="get_num2" class="e_j2"></p></dt>
+				<dd id="e_stor">&nbsp;</dd>
+			</dl>
+		</div>
+		<a class="fill_in" href="javascript:;" onClick="track(channel,10303,'information.html');"></a>
+	</div>
+</body>
+<script src="js/common.js"></script>
+<script>
+	var eStor = document.getElementById("e_stor");
+	var n = localStorage.getItem("n");
+	if(n){
+		eStor.style.backgroundImage = "url(images/l"+n+".png)";
+		localStorage.removeItem("n");
+	}
+
+	/*对值得解析*/
+	var m = localStorage.getItem("s");
+    var one = document.getElementById("one");
+    var getNum1 = document.getElementById("get_num1");
+    var getNum2 = document.getElementById("get_num2");
+    if(10 <= m && m < 100){
+        getNum1.style.display = "inline-block";
+        getNum2.style.display = "inline-block";
+        one.style.backgroundImage = "none";
+        var m1 = parseInt(m / 10);
+        var m2 = m % 10;
+        getNum1.style.backgroundPosition = "10px -"+m1*60+"px";
+        getNum2.style.backgroundPosition = "8px -"+m2*60+"px";
+    }else if(0 <= m && m < 10){
+        getNum1.style.display = "none";
+        getNum2.style.display = "none";
+        one.style.backgroundPosition = "34px -"+m*60+"px";
+    }
+</script>
+</html>
